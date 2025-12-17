@@ -60,4 +60,5 @@ public class HealthRecord {
     public void setCatatan(String catatan) {
         this.catatan = catatan;
     }
+
 }
