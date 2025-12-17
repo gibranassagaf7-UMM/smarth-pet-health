@@ -51,4 +51,5 @@ public class Pet {
     public void setPemilik(String pemilik) {
         this.pemilik = pemilik;
     }
+
 }
