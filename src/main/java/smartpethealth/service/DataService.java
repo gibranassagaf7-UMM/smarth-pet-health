@@ -30,4 +30,5 @@ public class DataService {
     public List<HealthRecord> getAllRecords(){
         return records;
     }
+
 }

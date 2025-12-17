@@ -51,4 +51,8 @@ public class Pet {
     public void setPemilik(String pemilik) {
         this.pemilik = pemilik;
     }
+
+    public void test(){
+        System.out.println("");
+    }
 }
