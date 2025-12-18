@@ -13,5 +13,4 @@ public class DashboardPanel extends JPanel{
 
         add(title, BorderLayout.CENTER);
     }
-
 }

@@ -40,5 +40,4 @@ public class MainFrame extends JFrame {
     public DataService getDataService() {
         return dataService;
     }
-
 }
