@@ -28,6 +28,7 @@ public class MainFrame extends JFrame {
         mainPanel = new JPanel(cardLayout);
 
         mainPanel.add(new DashboardPanel(this), "dashboard");
+        mainPanel.add(new PetListPanel(this), "petList");
 
         add(mainPanel);
         cardLayout.show(mainPanel, "dashboard");
