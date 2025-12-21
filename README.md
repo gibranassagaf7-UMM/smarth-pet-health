@@ -2,6 +2,10 @@
 
 **Smart Pet Health** adalah aplikasi desktop berbasis **Java Swing** untuk manajemen kesehatan hewan peliharaan. Aplikasi ini memungkinkan pengguna untuk menambah, mengedit, menghapus, dan melihat riwayat kesehatan pet, dengan data disimpan dalam format **JSON**.
 
+## Anggota Kelompok
+- Zalda Safriza - 202410370110088
+- Muhammad Gibran Assagaf - 202410370110090
+
 ---
 
 ## Fitur
