@@ -31,7 +31,7 @@ git clone https://github.com/yourusername/smart-pet-health.git
 cd smart-pet-health
 ```
 
-Penggunaan
+## Penggunaan
 
 1. Jalankan aplikasi, akan muncul Dashboard.
 
@@ -45,35 +45,41 @@ Penggunaan
 
 Data otomatis disimpan di file pets.json dan health_records.json di direktori project.
 
+## Structure Project
+
 src/
-├── main/java/smartpethealth/
-│   ├── Main.java                 # Entry point aplikasi
-│   ├── model/
-│   │   ├── Pet.java              # Model untuk Pet
-│   │   └── HealthRecord.java     # Model untuk HealthRecord
-│   ├── service/
-│   │   └── DataService.java      # Service untuk CRUD dan file handling
-│   └── ui/
-│       ├── MainFrame.java        # Frame utama dengan CardLayout
-│       ├── DashboardPanel.java   # Panel Dashboard
-│       ├── PetListPanel.java     # Panel daftar pet
-│       ├── AddPetPanel.java      # Panel tambah pet
-│       ├── EditPetPanel.java     # Panel edit pet
-│       ├── HealthRecordListPanel.java # Panel riwayat kesehatan
-│       ├── AddHealthRecordPanel.java  # Panel tambah record
-│       ├── EditHealthRecordPanel.java # Panel edit record
-│       ├── SearchPanel.java      # Panel pencarian
-│       ├── ReportsPanel.java     # Panel laporan
-│       ├── SettingsPanel.java    # Panel pengaturan
-│       ├── HelpPanel.java        # Panel bantuan
-│       └── SummaryPanel.java     # Panel ringkasan
-└── test/java/smartpethealth/service/
-    └── DataServiceTest.java      # Unit tests untuk CRUD
+├── main/
+│ └── java/
+│ └── smartpethealth/
+│ ├── Main.java
+│ ├── model/
+│ │ ├── Pet.java
+│ │ └── HealthRecord.java
+│ ├── service/
+│ │ └── DataService.java
+│ └── ui/
+│ ├── MainFrame.java
+│ ├── DashboardPanel.java
+│ ├── PetListPanel.java
+│ ├── AddPetPanel.java
+│ ├── EditPetPanel.java
+│ ├── HealthRecordListPanel.java
+│ ├── AddHealthRecordPanel.java
+│ ├── EditHealthRecordPanel.java
+│ ├── SearchPanel.java
+│ ├── ReportsPanel.java
+│ ├── SettingsPanel.java
+│ ├── HelpPanel.java
+│ └── SummaryPanel.java
+└── test/
+└── java/
+└── smartpethealth/
+└── service/
+└── DataServiceTest.java
 
-pom.xml                           # Maven configuration
-README.md                         # Dokumentasi ini
+pom.xml
 
-Teknologi yang Digunakan
+## Teknologi yang Digunakan
 - Java Swing: Untuk UI desktop
 - Maven: Build dan dependency management
 - JSON: Penyimpanan data pets dan health records
