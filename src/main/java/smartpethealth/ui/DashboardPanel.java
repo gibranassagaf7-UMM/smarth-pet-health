@@ -9,14 +9,21 @@ public class DashboardPanel extends JPanel{
         setLayout(new BorderLayout());
 
         JLabel title = new JLabel("dashboard - Smart Pet Health", SwingConstants.CENTER);
-        title.setFont(new Font("Arial", Font.BOLD,22));
+        title.setFont(new Font("Segeo UI", Font.BOLD,22));
 
         add(title, BorderLayout.CENTER);
 
         JButton petBtn = new JButton("Lihat Daftar Hewan");
         petBtn.addActionListener(e -> frame.showPage("petList"));
 
-        add(petBtn, BorderLayout.SOUTH);
+        JButton addBtn = new JButton("Tambah Pet");
+        addBtn.addActionListener(e -> frame.showPage("addPet"));
+
+        JPanel bottom = new JPanel();
+        bottom.add(petBtn);
+        bottom.add(addBtn);
+        add(bottom, BorderLayout.SOUTH);
+
     }
 
 }

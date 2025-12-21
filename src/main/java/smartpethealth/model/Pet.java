@@ -5,10 +5,10 @@ public class Pet {
     private int id;
     private String nama;
     private String jenis;
-    private int umur;
+    private String umur;
     private String pemilik;
 
-    public Pet(int id, String nama, String jenis, int umur, String pemilik) {
+    public Pet(int id, String nama, String jenis, String umur, String pemilik) {
         this.id = id;
         this.nama = nama;
         this.jenis = jenis;
@@ -28,7 +28,7 @@ public class Pet {
         return jenis;
     }
 
-    public int getUmur() {
+    public String getUmur() {
         return umur;
     }
 
@@ -44,7 +44,7 @@ public class Pet {
         this.jenis = jenis;
     }
 
-    public void setUmur(int umur) {
+    public void setUmur(String umur) {
         this.umur = umur;
     }
 
