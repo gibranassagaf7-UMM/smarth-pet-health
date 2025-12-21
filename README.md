@@ -69,8 +69,6 @@ src/
 │ ├── SearchPanel.java
 │ ├── ReportsPanel.java
 │ ├── SettingsPanel.java
-│ ├── HelpPanel.java
-│ └── SummaryPanel.java
 └── test/
 └── java/
 └── smartpethealth/
