@@ -3,8 +3,8 @@
     "id": 1,
     "petId": 1,
     "tanggal": "2025-12-21",
-    "berat": 2.0,
-    "kondisi": "Baik",
-    "catatan": "Begitulah"
+    "berat": 11.0,
+    "kondisi": "Tidak sehat",
+    "catatan": "Obesitas"
   }
 ]

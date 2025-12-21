@@ -52,6 +52,11 @@ public class Pet {
         return pemilik;
     }
 
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public void setNama(String nama) {
         if (nama == null || nama.trim().isEmpty()) {
             throw new IllegalArgumentException("Nama tidak boleh kosong");

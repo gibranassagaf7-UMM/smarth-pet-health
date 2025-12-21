@@ -47,7 +47,6 @@ public class AddHealthRecordPanel extends JPanel {
         tanggalField = new JTextField();
         tanggalField.setFont(new Font("Segoe UI", Font.PLAIN, 16));
         tanggalField.setPreferredSize(new Dimension(200, 30));
-        tanggalField.setToolTipText("Masukkan tanggal dalam format DD MM YYYY, contoh: 15 08 2023");
         form.add(tanggalField, gbc);
 
         gbc.gridx = 0; gbc.gridy = 1;
@@ -59,7 +58,6 @@ public class AddHealthRecordPanel extends JPanel {
         beratField = new JTextField();
         beratField.setFont(new Font("Segoe UI", Font.PLAIN, 16));
         beratField.setPreferredSize(new Dimension(200, 30));
-        beratField.setToolTipText("Masukkan berat dalam kg, contoh: 5.5");
         form.add(beratField, gbc);
 
         gbc.gridx = 0; gbc.gridy = 2;
@@ -71,7 +69,6 @@ public class AddHealthRecordPanel extends JPanel {
         kondisiField = new JTextField();
         kondisiField.setFont(new Font("Segoe UI", Font.PLAIN, 16));
         kondisiField.setPreferredSize(new Dimension(200, 30));
-        kondisiField.setToolTipText("Masukkan kondisi kesehatan, contoh: Sehat");
         form.add(kondisiField, gbc);
 
         gbc.gridx = 0; gbc.gridy = 3;
@@ -88,7 +85,6 @@ public class AddHealthRecordPanel extends JPanel {
                 BorderFactory.createLineBorder(new Color(102, 51, 153), 2),
                 BorderFactory.createEmptyBorder(5, 5, 5, 5)
         ));
-        catatanArea.setToolTipText("Masukkan catatan tambahan tentang kesehatan pet");
         JScrollPane scrollPane = new JScrollPane(catatanArea);
         scrollPane.setBorder(BorderFactory.createEmptyBorder());
         gbc.weighty = 0.0;

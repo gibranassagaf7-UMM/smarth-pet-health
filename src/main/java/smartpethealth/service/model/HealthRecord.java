@@ -45,6 +45,10 @@ public class HealthRecord {
         return catatan;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public void setTanggal(LocalDate tanggal) {
         this.tanggal = tanggal;
     }

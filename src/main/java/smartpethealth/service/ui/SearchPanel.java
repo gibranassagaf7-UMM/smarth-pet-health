@@ -6,11 +6,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SearchPanel extends JPanel {
 
     private static final Color PASTEL_PURPLE = Color.decode("#D39CFA");
+    private List<Pet> searchResults = new ArrayList<>();  // Untuk menyimpan hasil pencarian
 
     public SearchPanel(MainFrame frame) {
         setLayout(new BorderLayout());
@@ -62,15 +64,10 @@ public class SearchPanel extends JPanel {
             @Override
             public void mouseClicked(MouseEvent evt) {
                 if (evt.getClickCount() == 1) {
-                    String selected = resultList.getSelectedValue();
-                    if (selected != null && !selected.equals("Tidak ada hasil ditemukan.")) {
-                        try {
-                            String idStr = selected.split(":")[0].trim();
-                            int id = Integer.parseInt(idStr);
-                            frame.showHealthRecords(id);
-                        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-                            JOptionPane.showMessageDialog(SearchPanel.this, "Error parsing ID: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                        }
+                    int index = resultList.getSelectedIndex();
+                    if (index >= 0 && index < searchResults.size()) {
+                        Pet selectedPet = searchResults.get(index);
+                        frame.showHealthRecords(selectedPet.getId());
                     }
                 }
             }
@@ -79,16 +76,18 @@ public class SearchPanel extends JPanel {
         searchBtn.addActionListener(e -> {
             String query = searchField.getText().trim().toLowerCase();
             listModel.clear();
+            searchResults.clear();
 
             List<Pet> pets = frame.getDataService().getAllPets();
-            boolean found = false;
+            int no = 1;  // Nomor urut untuk hasil pencarian
             for (Pet p : pets) {
                 if (p.getNama().toLowerCase().contains(query) || p.getJenis().toLowerCase().contains(query)) {
-                    listModel.addElement(p.getId() + ": " + p.getNama() + " (" + p.getJenis() + ")");
-                    found = true;
+                    searchResults.add(p);  // Simpan Pet ke list
+                    listModel.addElement(no + ": " + p.getNama() + " (" + p.getJenis() + ")");
+                    no++;
                 }
             }
-            if (!found) {
+            if (searchResults.isEmpty()) {
                 listModel.addElement("Tidak ada hasil ditemukan.");
             }
 

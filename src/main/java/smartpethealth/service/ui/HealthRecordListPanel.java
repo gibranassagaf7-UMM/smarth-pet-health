@@ -27,7 +27,7 @@ public class HealthRecordListPanel extends JPanel {
         add(title, BorderLayout.NORTH);
 
         tableModel = new DefaultTableModel(new Object[]{
-                "ID", "Tanggal", "Berat (kg)", "Kondisi", "Catatan"
+                "No", "ID", "Tanggal", "Berat (kg)", "Kondisi", "Catatan"
         }, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -63,11 +63,16 @@ public class HealthRecordListPanel extends JPanel {
         DefaultTableCellRenderer headerRenderer = (DefaultTableCellRenderer) table.getTableHeader().getDefaultRenderer();
         headerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
 
-        table.getColumnModel().getColumn(0).setPreferredWidth(50);
-        table.getColumnModel().getColumn(1).setPreferredWidth(100);
-        table.getColumnModel().getColumn(2).setPreferredWidth(80);
-        table.getColumnModel().getColumn(3).setPreferredWidth(100);
-        table.getColumnModel().getColumn(4).setPreferredWidth(200);
+        // Sembunyikan kolom ID (kolom 1)
+        table.getColumnModel().getColumn(1).setMinWidth(0);
+        table.getColumnModel().getColumn(1).setMaxWidth(0);
+        table.getColumnModel().getColumn(1).setWidth(0);
+
+        table.getColumnModel().getColumn(0).setPreferredWidth(50);  // No
+        table.getColumnModel().getColumn(2).setPreferredWidth(100); // Tanggal
+        table.getColumnModel().getColumn(3).setPreferredWidth(80);  // Berat
+        table.getColumnModel().getColumn(4).setPreferredWidth(100); // Kondisi
+        table.getColumnModel().getColumn(5).setPreferredWidth(200); // Catatan
 
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -97,7 +102,8 @@ public class HealthRecordListPanel extends JPanel {
                 JOptionPane.showMessageDialog(this, "Pilih record dulu untuk edit.", "Peringatan", JOptionPane.WARNING_MESSAGE);
                 return;
             }
-            int recordId = (int) tableModel.getValueAt(table.convertRowIndexToModel(row), 0);
+            int modelRow = table.convertRowIndexToModel(row);
+            int recordId = (int) tableModel.getValueAt(modelRow, 1);  // Kolom 1 adalah ID (tersembunyi)
             frame.showEditHealthRecord(recordId, petId);
         });
 
@@ -111,7 +117,8 @@ public class HealthRecordListPanel extends JPanel {
             int confirm = JOptionPane.showConfirmDialog(this, "Yakin ingin menghapus record ini?", "Konfirmasi Hapus", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (confirm != JOptionPane.YES_OPTION) return;
 
-            int recordId = (int) tableModel.getValueAt(table.convertRowIndexToModel(row), 0);
+            int modelRow = table.convertRowIndexToModel(row);
+            int recordId = (int) tableModel.getValueAt(modelRow, 1);  // Kolom 1 adalah ID (tersembunyi)
             frame.getDataService().deleteHealthRecord(recordId);
             refresh(frame);
             JOptionPane.showMessageDialog(this, "Record berhasil dihapus.", "Sukses", JOptionPane.INFORMATION_MESSAGE);
@@ -138,9 +145,11 @@ public class HealthRecordListPanel extends JPanel {
         tableModel.setRowCount(0);
         List<HealthRecord> list = frame.getDataService().getRecordsByPet(petId);
 
+        int no = 1;  // Nomor urut mulai dari 1
         for (HealthRecord r : list) {
             tableModel.addRow(new Object[]{
-                    r.getId(),
+                    no++,        // No (urutan)
+                    r.getId(),   // ID (tersembunyi)
                     r.getTanggal().toString(),
                     r.getBerat(),
                     r.getKondisi(),

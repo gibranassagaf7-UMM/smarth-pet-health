@@ -45,26 +45,30 @@ public class DataService {
         }
     }
 
+    // Method reassignPetIds yang diperbaiki untuk JSON (bukan SQL)
     public void reassignPetIds() {
-        String updateQuery = "UPDATE pets SET id = id - 1 WHERE id > ?";
-        try (PreparedStatement stmt = conn.prepareStatement(updateQuery)) {
-
-            String resetQuery = "SET @row_number = 0; UPDATE pets SET id = (@row_number:=@row_number + 1) ORDER BY id;";
-
-            List<Pet> pets = getAllPets();
-            int newId = 1;
-            for (Pet p : pets) {
-                String updateIdQuery = "UPDATE pets SET id = ? WHERE id = ?";
-                try (PreparedStatement updateStmt = conn.prepareStatement(updateIdQuery)) {
-                    updateStmt.setInt(1, newId);
-                    updateStmt.setInt(2, p.getId());
-                    updateStmt.executeUpdate();
-                }
-                newId++;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        // Reassign ID pets agar berurutan mulai dari 1
+        int newId = 1;
+        for (Pet p : pets) {
+            p.setId(newId++);
         }
+        // Update counter
+        petIDCounter = newId;
+        // Simpan perubahan ke file
+        savePets();
+    }
+
+    // Method reassignRecordIds yang baru
+    public void reassignRecordIds() {
+        // Reassign ID records agar berurutan mulai dari 1
+        int newId = 1;
+        for (HealthRecord r : records) {
+            r.setId(newId++);
+        }
+        // Update counter
+        recordIDCounter = newId;
+        // Simpan perubahan ke file
+        saveRecords();
     }
 
     public void addPet(String nama, String jenis, String umur, String pemilik) {
@@ -92,7 +96,6 @@ public class DataService {
         records.add(record);
         saveRecords();
     }
-
 
     public List<HealthRecord> getRecordsByPet(int petId) {
         List<HealthRecord> result = new ArrayList<>();
@@ -130,8 +133,12 @@ public class DataService {
         saveRecords();
     }
 
+    // Method deleteHealthRecord yang diperbaiki: Tambahkan reassignRecordIds()
     public void deleteHealthRecord(int id) {
         records.removeIf(r -> r.getId() == id);
+        // Reassign ID records agar berurutan
+        reassignRecordIds();
+        // Simpan perubahan
         saveRecords();
     }
 
@@ -148,9 +155,19 @@ public class DataService {
         }
     }
 
+    // Method deletePet yang diperbaiki: Hapus pet dan semua records terkait, lalu reassign ID
     public void deletePet(int id) {
+        // Hapus pet dari list
         pets.removeIf(p -> p.getId() == id);
+        // Hapus semua records yang terkait dengan pet ini
+        records.removeIf(r -> r.getPetId() == id);
+        // Reassign ID pets agar berurutan
+        reassignPetIds();
+        // Reassign ID records agar berurutan (karena records juga bisa terpengaruh)
+        reassignRecordIds();
+        // Simpan perubahan
         savePets();
+        saveRecords();
     }
 
     public Pet getPetByID(int id) {
@@ -189,7 +206,6 @@ public class DataService {
             System.out.println("Pets file not found, starting fresh.");
         }
     }
-
 
     private void loadRecords() {
         try (FileReader reader = new FileReader(RECORDS_FILE)) {
