@@ -1,4 +1,4 @@
-package smartpethealth.model;
+package smartpethealth.service.model;
 
 import java.time.LocalDate;
 
@@ -61,4 +61,15 @@ public class HealthRecord {
         this.catatan = catatan;
     }
 
+    @Override
+    public String toString() {
+        return "HealthRecord{" +
+                "id=" + id +
+                ", petId=" + petId +
+                ", tanggal=" + tanggal +
+                ", berat=" + berat +
+                ", kondisi='" + kondisi + '\'' +
+                ", catatan='" + catatan + '\'' +
+                '}';
+    }
 }

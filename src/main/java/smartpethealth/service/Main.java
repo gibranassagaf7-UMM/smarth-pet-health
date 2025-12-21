@@ -1,6 +1,6 @@
-package smartpethealth;
+package smartpethealth.service;
 
-import smartpethealth.ui.MainFrame;
+import smartpethealth.service.ui.MainFrame;
 
 public class Main {
     public static void main(String[] args) {
