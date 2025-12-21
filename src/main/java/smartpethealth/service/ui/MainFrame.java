@@ -20,7 +20,6 @@ public class MainFrame extends JFrame {
     private ReportsPanel reportsPanel;
     private SettingsPanel settingsPanel;
     private SearchPanel searchPanel;
-    private HelpPanel helpPanel;
     private CardLayout cardLayout;
     private JPanel mainPanel;
 
@@ -58,7 +57,6 @@ public class MainFrame extends JFrame {
             reportsPanel = new ReportsPanel(this);
             settingsPanel = new SettingsPanel(this);
             searchPanel = new SearchPanel(this);
-            helpPanel = new HelpPanel(this);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error inisialisasi panel: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             System.exit(1);
@@ -74,7 +72,6 @@ public class MainFrame extends JFrame {
         mainPanel.add(reportsPanel, "reports");
         mainPanel.add(settingsPanel, "settings");
         mainPanel.add(searchPanel, "search");
-        mainPanel.add(helpPanel, "help");
     }
 
     public void showPage(String pageName) {
