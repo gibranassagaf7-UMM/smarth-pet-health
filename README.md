@@ -47,35 +47,37 @@ Data otomatis disimpan di file pets.json dan health_records.json di direktori pr
 
 ## Structure Project
 
+<pre><code>
 src/
 ├── main/
-│ └── java/
-│ └── smartpethealth/
-│ ├── Main.java
-│ ├── model/
-│ │ ├── Pet.java
-│ │ └── HealthRecord.java
-│ ├── service/
-│ │ └── DataService.java
-│ └── ui/
-│ ├── MainFrame.java
-│ ├── DashboardPanel.java
-│ ├── PetListPanel.java
-│ ├── AddPetPanel.java
-│ ├── EditPetPanel.java
-│ ├── HealthRecordListPanel.java
-│ ├── AddHealthRecordPanel.java
-│ ├── EditHealthRecordPanel.java
-│ ├── SearchPanel.java
-│ ├── ReportsPanel.java
-│ └── SettingsPanel.java
+│   └── java/
+│       └── smartpethealth/
+│           ├── Main.java
+│           ├── model/
+│           │   ├── Pet.java
+│           │   └── HealthRecord.java
+│           ├── service/
+│           │   └── DataService.java
+│           └── ui/
+│               ├── MainFrame.java
+│               ├── DashboardPanel.java
+│               ├── PetListPanel.java
+│               ├── AddPetPanel.java
+│               ├── EditPetPanel.java
+│               ├── HealthRecordListPanel.java
+│               ├── AddHealthRecordPanel.java
+│               ├── EditHealthRecordPanel.java
+│               ├── SearchPanel.java
+│               ├── ReportsPanel.java
+│               └── SettingsPanel.java
 └── test/
-└── java/
-└── smartpethealth/
-└── service/
-└── DataServiceTest.java
+    └── java/
+        └── smartpethealth/
+            └── service/
+                └── DataServiceTest.java
 
 pom.xml
+</code></pre>
 
 ## Teknologi yang Digunakan
 - Java Swing: Untuk UI desktop
