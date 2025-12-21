@@ -68,7 +68,7 @@ src/
 │ ├── EditHealthRecordPanel.java
 │ ├── SearchPanel.java
 │ ├── ReportsPanel.java
-│ ├── SettingsPanel.java
+│ └── SettingsPanel.java
 └── test/
 └── java/
 └── smartpethealth/
