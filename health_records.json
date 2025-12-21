@@ -1,10 +1,18 @@
 [
   {
     "id": 1,
-    "petId": 1,
-    "tanggal": "2025-12-21",
-    "berat": 11.0,
-    "kondisi": "Tidak sehat",
-    "catatan": "Obesitas"
+    "petId": 3,
+    "tanggal": "2025-12-22",
+    "berat": 2.0,
+    "kondisi": "Sehat",
+    "catatan": "Di Madura"
+  },
+  {
+    "id": 2,
+    "petId": 4,
+    "tanggal": "2007-07-22",
+    "berat": 1.0,
+    "kondisi": "Sehat",
+    "catatan": "Kelinci Fiksi"
   }
 ]

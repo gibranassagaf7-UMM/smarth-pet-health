@@ -12,7 +12,7 @@ import java.util.List;
 public class SearchPanel extends JPanel {
 
     private static final Color PASTEL_PURPLE = Color.decode("#D39CFA");
-    private List<Pet> searchResults = new ArrayList<>();  // Untuk menyimpan hasil pencarian
+    private List<Pet> searchResults = new ArrayList<>();
 
     public SearchPanel(MainFrame frame) {
         setLayout(new BorderLayout());
@@ -79,10 +79,10 @@ public class SearchPanel extends JPanel {
             searchResults.clear();
 
             List<Pet> pets = frame.getDataService().getAllPets();
-            int no = 1;  // Nomor urut untuk hasil pencarian
+            int no = 1;
             for (Pet p : pets) {
                 if (p.getNama().toLowerCase().contains(query) || p.getJenis().toLowerCase().contains(query)) {
-                    searchResults.add(p);  // Simpan Pet ke list
+                    searchResults.add(p);
                     listModel.addElement(no + ": " + p.getNama() + " (" + p.getJenis() + ")");
                     no++;
                 }

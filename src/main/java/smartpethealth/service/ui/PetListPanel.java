@@ -26,7 +26,6 @@ public class PetListPanel extends JPanel {
         title.setForeground(Color.WHITE);
         title.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0));
 
-        // Panel untuk sorting
         JPanel sortPanel = new JPanel();
         sortPanel.setBackground(PASTEL_PURPLE);
         sortPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -49,9 +48,9 @@ public class PetListPanel extends JPanel {
         sortBtn.addActionListener(e -> {
             String selected = (String) sortCombo.getSelectedItem();
             if ("ID".equals(selected)) {
-                sorter.setSortKeys(java.util.List.of(new RowSorter.SortKey(1, SortOrder.ASCENDING)));  // Kolom 1 untuk ID (karena kolom 0 adalah No)
+                sorter.setSortKeys(java.util.List.of(new RowSorter.SortKey(1, SortOrder.ASCENDING)));
             } else if ("Nama".equals(selected)) {
-                sorter.setSortKeys(java.util.List.of(new RowSorter.SortKey(2, SortOrder.ASCENDING)));  // Kolom 2 untuk Nama
+                sorter.setSortKeys(java.util.List.of(new RowSorter.SortKey(2, SortOrder.ASCENDING)));
             }
         });
 
@@ -65,7 +64,6 @@ public class PetListPanel extends JPanel {
         northPanel.add(sortPanel, BorderLayout.SOUTH);
         add(northPanel, BorderLayout.NORTH);
 
-        // Ubah kolom: Tambahkan "No" sebagai kolom pertama, lalu ID (tersembunyi atau tidak), Nama, dll.
         tableModel = new DefaultTableModel(new Object[]{
                 "No", "ID", "Nama", "Jenis", "Umur", "Pemilik"
         }, 0) {
@@ -84,7 +82,6 @@ public class PetListPanel extends JPanel {
         table.setGridColor(new Color(200, 200, 200));
         table.setShowGrid(true);
 
-        // Sembunyikan kolom ID agar tidak tampil, tapi tetap bisa diakses untuk edit/delete
         table.getColumnModel().getColumn(1).setMinWidth(0);
         table.getColumnModel().getColumn(1).setMaxWidth(0);
         table.getColumnModel().getColumn(1).setWidth(0);
@@ -109,12 +106,11 @@ public class PetListPanel extends JPanel {
         DefaultTableCellRenderer headerRenderer = (DefaultTableCellRenderer) table.getTableHeader().getDefaultRenderer();
         headerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
 
-        // Sesuaikan lebar kolom: No, Nama, Jenis, Umur, Pemilik (ID tersembunyi)
-        table.getColumnModel().getColumn(0).setPreferredWidth(50);  // No
-        table.getColumnModel().getColumn(2).setPreferredWidth(120); // Nama
-        table.getColumnModel().getColumn(3).setPreferredWidth(100); // Jenis
-        table.getColumnModel().getColumn(4).setPreferredWidth(80);  // Umur
-        table.getColumnModel().getColumn(5).setPreferredWidth(120); // Pemilik
+        table.getColumnModel().getColumn(0).setPreferredWidth(50);
+        table.getColumnModel().getColumn(2).setPreferredWidth(120);
+        table.getColumnModel().getColumn(3).setPreferredWidth(100);
+        table.getColumnModel().getColumn(4).setPreferredWidth(80);
+        table.getColumnModel().getColumn(5).setPreferredWidth(120);
 
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -146,7 +142,7 @@ public class PetListPanel extends JPanel {
                 return;
             }
             int modelRow = table.convertRowIndexToModel(row);
-            int id = (int) tableModel.getValueAt(modelRow, 1);  // Kolom 1 adalah ID (tersembunyi)
+            int id = (int) tableModel.getValueAt(modelRow, 1);
             frame.showEditPet(id);
         });
 
@@ -157,7 +153,7 @@ public class PetListPanel extends JPanel {
                 return;
             }
             int modelRow = table.convertRowIndexToModel(row);
-            int id = (int) tableModel.getValueAt(modelRow, 1);  // Kolom 1 adalah ID (tersembunyi)
+            int id = (int) tableModel.getValueAt(modelRow, 1);
 
             int confirm = JOptionPane.showConfirmDialog(this, "Yakin ingin menghapus hewan ini?", "Konfirmasi Hapus", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (confirm != JOptionPane.YES_OPTION) return;
@@ -174,7 +170,7 @@ public class PetListPanel extends JPanel {
                 return;
             }
             int modelRow = table.convertRowIndexToModel(row);
-            int id = (int) tableModel.getValueAt(modelRow, 1);  // Kolom 1 adalah ID (tersembunyi)
+            int id = (int) tableModel.getValueAt(modelRow, 1);
             frame.showHealthRecords(id);
         });
 
@@ -197,11 +193,11 @@ public class PetListPanel extends JPanel {
         tableModel.setRowCount(0);
 
         List<Pet> pets = frame.getDataService().getAllPets();
-        int no = 1;  // Nomor urut mulai dari 1
+        int no = 1;
         for (Pet p : pets) {
             tableModel.addRow(new Object[]{
-                    no++,        // No (urutan)
-                    p.getId(),   // ID (tersembunyi)
+                    no++,
+                    p.getId(),
                     p.getNama(),
                     p.getJenis(),
                     p.getUmur(),

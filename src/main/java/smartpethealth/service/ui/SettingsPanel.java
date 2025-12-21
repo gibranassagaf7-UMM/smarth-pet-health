@@ -2,6 +2,7 @@ package smartpethealth.service.ui;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 
 public class SettingsPanel extends JPanel {
 
@@ -25,7 +26,8 @@ public class SettingsPanel extends JPanel {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.weightx = 1.0;
 
-        gbc.gridx = 0; gbc.gridy = 1;
+        // Backup
+        gbc.gridx = 0; gbc.gridy = 0;
         JLabel backupLabel = new JLabel("Backup Data:");
         backupLabel.setFont(new Font("Segoe UI", Font.PLAIN, 16));
         form.add(backupLabel, gbc);
@@ -44,6 +46,50 @@ public class SettingsPanel extends JPanel {
             }
         });
         form.add(backupBtn, gbc);
+
+        // Import (Restore)
+        gbc.gridx = 0; gbc.gridy = 1;
+        JLabel importLabel = new JLabel("Restore Data:");
+        importLabel.setFont(new Font("Segoe UI", Font.PLAIN, 16));
+        form.add(importLabel, gbc);
+
+        gbc.gridx = 1;
+        JButton importBtn = new JButton("Import Backup");
+        importBtn.setFont(new Font("Segoe UI", Font.BOLD, 16));
+        importBtn.setBackground(new Color(102, 51, 153));
+        importBtn.setForeground(Color.WHITE);
+        importBtn.setFocusPainted(false);
+        importBtn.addActionListener(e -> {
+            JFileChooser chooser = new JFileChooser();
+            if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+                File file = chooser.getSelectedFile();
+                frame.getDataService().importData(file.getAbsolutePath());
+                JOptionPane.showMessageDialog(this, "Restore berhasil! Restart aplikasi untuk melihat perubahan.", "Sukses", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+        form.add(importBtn, gbc);
+
+        // Reassign ID Manual
+        gbc.gridx = 0; gbc.gridy = 2;
+        JLabel reassignLabel = new JLabel("Perbaiki ID:");
+        reassignLabel.setFont(new Font("Segoe UI", Font.PLAIN, 16));
+        form.add(reassignLabel, gbc);
+
+        gbc.gridx = 1;
+        JButton reassignBtn = new JButton("Reassign ID");
+        reassignBtn.setFont(new Font("Segoe UI", Font.BOLD, 16));
+        reassignBtn.setBackground(new Color(102, 51, 153));
+        reassignBtn.setForeground(Color.WHITE);
+        reassignBtn.setFocusPainted(false);
+        reassignBtn.addActionListener(e -> {
+            int confirm = JOptionPane.showConfirmDialog(this, "Yakin ingin reassign semua ID? Ini akan mengubah ID pets dan records agar berurutan.", "Konfirmasi", JOptionPane.YES_NO_OPTION);
+            if (confirm == JOptionPane.YES_OPTION) {
+                frame.getDataService().reassignPetIds();
+                frame.getDataService().reassignRecordIds();
+                JOptionPane.showMessageDialog(this, "ID berhasil direassign!", "Sukses", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+        form.add(reassignBtn, gbc);
 
         add(form, BorderLayout.CENTER);
 

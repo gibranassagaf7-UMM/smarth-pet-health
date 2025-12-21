@@ -12,8 +12,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.ArrayList;
@@ -22,7 +20,6 @@ public class DataService {
 
     private List<Pet> pets = new ArrayList<>();
     private List<HealthRecord> records = new ArrayList<>();
-    private Connection conn;
 
     private int petIDCounter = 1;
     private int recordIDCounter = 1;
@@ -45,29 +42,21 @@ public class DataService {
         }
     }
 
-    // Method reassignPetIds yang diperbaiki untuk JSON (bukan SQL)
     public void reassignPetIds() {
-        // Reassign ID pets agar berurutan mulai dari 1
         int newId = 1;
         for (Pet p : pets) {
             p.setId(newId++);
         }
-        // Update counter
         petIDCounter = newId;
-        // Simpan perubahan ke file
         savePets();
     }
 
-    // Method reassignRecordIds yang baru
     public void reassignRecordIds() {
-        // Reassign ID records agar berurutan mulai dari 1
         int newId = 1;
         for (HealthRecord r : records) {
             r.setId(newId++);
         }
-        // Update counter
         recordIDCounter = newId;
-        // Simpan perubahan ke file
         saveRecords();
     }
 
@@ -133,12 +122,9 @@ public class DataService {
         saveRecords();
     }
 
-    // Method deleteHealthRecord yang diperbaiki: Tambahkan reassignRecordIds()
     public void deleteHealthRecord(int id) {
         records.removeIf(r -> r.getId() == id);
-        // Reassign ID records agar berurutan
         reassignRecordIds();
-        // Simpan perubahan
         saveRecords();
     }
 
@@ -155,17 +141,11 @@ public class DataService {
         }
     }
 
-    // Method deletePet yang diperbaiki: Hapus pet dan semua records terkait, lalu reassign ID
     public void deletePet(int id) {
-        // Hapus pet dari list
         pets.removeIf(p -> p.getId() == id);
-        // Hapus semua records yang terkait dengan pet ini
         records.removeIf(r -> r.getPetId() == id);
-        // Reassign ID pets agar berurutan
         reassignPetIds();
-        // Reassign ID records agar berurutan (karena records juga bisa terpengaruh)
         reassignRecordIds();
-        // Simpan perubahan
         savePets();
         saveRecords();
     }
@@ -247,6 +227,27 @@ public class DataService {
         @Override
         public LocalDate deserialize(com.google.gson.JsonElement json, Type typeOfT, com.google.gson.JsonDeserializationContext context) {
             return LocalDate.parse(json.getAsString());
+        }
+    }
+
+    public void importData(String filename) {
+        try (FileReader reader = new FileReader(filename)) {
+            DataExport imported = gson.fromJson(reader, DataExport.class);
+            if (imported != null) {
+                this.pets = imported.pets != null ? imported.pets : new ArrayList<>();
+                this.records = imported.records != null ? imported.records : new ArrayList<>();
+                // Update counters
+                if (!pets.isEmpty()) {
+                    petIDCounter = pets.stream().mapToInt(Pet::getId).max().orElse(0) + 1;
+                }
+                if (!records.isEmpty()) {
+                    recordIDCounter = records.stream().mapToInt(HealthRecord::getId).max().orElse(0) + 1;
+                }
+                savePets();
+                saveRecords();
+            }
+        } catch (IOException e) {
+            System.err.println("Error importing data: " + e.getMessage());
         }
     }
 }
