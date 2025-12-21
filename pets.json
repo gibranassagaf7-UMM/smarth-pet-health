@@ -1,1 +1,9 @@
-[]
+[
+  {
+    "id": 3,
+    "nama": "Test aja",
+    "jenis": "Apa aja",
+    "umur": "2 aja",
+    "pemilik": "Gibran aja"
+  }
+]

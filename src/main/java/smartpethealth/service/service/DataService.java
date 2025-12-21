@@ -11,6 +11,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.ArrayList;
@@ -19,6 +22,7 @@ public class DataService {
 
     private List<Pet> pets = new ArrayList<>();
     private List<HealthRecord> records = new ArrayList<>();
+    private Connection conn;
 
     private int petIDCounter = 1;
     private int recordIDCounter = 1;
@@ -38,6 +42,28 @@ public class DataService {
         }
         if (!records.isEmpty()) {
             recordIDCounter = records.stream().mapToInt(HealthRecord::getId).max().orElse(0) + 1;
+        }
+    }
+
+    public void reassignPetIds() {
+        String updateQuery = "UPDATE pets SET id = id - 1 WHERE id > ?";
+        try (PreparedStatement stmt = conn.prepareStatement(updateQuery)) {
+
+            String resetQuery = "SET @row_number = 0; UPDATE pets SET id = (@row_number:=@row_number + 1) ORDER BY id;";
+
+            List<Pet> pets = getAllPets();
+            int newId = 1;
+            for (Pet p : pets) {
+                String updateIdQuery = "UPDATE pets SET id = ? WHERE id = ?";
+                try (PreparedStatement updateStmt = conn.prepareStatement(updateIdQuery)) {
+                    updateStmt.setInt(1, newId);
+                    updateStmt.setInt(2, p.getId());
+                    updateStmt.executeUpdate();
+                }
+                newId++;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
