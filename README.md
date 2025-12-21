@@ -73,8 +73,6 @@ src/
 └── test/
     └── java/
         └── smartpethealth/
-            └── service/
-                └── DataServiceTest.java
 
 pom.xml
 </code></pre>
